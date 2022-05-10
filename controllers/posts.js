@@ -70,10 +70,14 @@ const posts = {
       if (body.hasOwnProperty('content') && body.content === '') {
         handleError(res);
       } else {
-        const updateResult = await Posts.findByIdAndUpdate(id, {
-          ...body,
-          updateAt: handleLocalDate(),
-        });
+        const updateResult = await Posts.findByIdAndUpdate(
+          id,
+          {
+            ...body,
+            updateAt: handleLocalDate(),
+          },
+          { runValidators: true, new: true }
+        );
         if (updateResult) {
           handleSuccess(res, updateResult);
         } else {
