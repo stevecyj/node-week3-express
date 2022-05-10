@@ -66,8 +66,13 @@ const posts = {
   async updateSinglePost(req, res) {
     const id = req.url.split('/').pop();
     const { body } = req;
+    // console.log(body);
+
     try {
-      if (body.hasOwnProperty('content') && body.content === '') {
+      if (
+        Object.keys(body).length == 0 ||
+        (body.hasOwnProperty('content') && body.content === '')
+      ) {
         handleError(res);
       } else {
         const updateResult = await Posts.findByIdAndUpdate(
